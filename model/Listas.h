@@ -1,35 +1,38 @@
 #ifndef LISTAS_H 
 #define LISTAS_H
 
+
+template <typename T>
 class Lista {
     public:
         int current;
         int size;
-        int *lista;
+        T *lista;
     
         Lista();
         ~Lista();
         
-        void insert(int);
-        void eliminar(int);
-        int buscar(int);
+        void insert(T);
+        void eliminar(T);
+        int buscar(T);
 };
 
 
-
-Lista::Lista(){
+template <typename T>
+Lista<T>::Lista(){
     size = 2;
     current = 0;
-    lista = new int[size];
+    lista = new T[size];
 }
-Lista::~Lista() {
+template <typename T>
+Lista<T>::~Lista() {
     delete[] lista;
 }
-
-void Lista::insert(int data){
+template <typename T>
+void Lista<T>::insert(int data){
     if (current == size){
         size = size *2;
-        int* nuevo = new int[size];
+        int* nuevo = new T[size];
         for (int i =0; i< current; i ++){
             nuevo[i] = lista[i];
         }
@@ -39,7 +42,8 @@ void Lista::insert(int data){
     lista[current] = data;
     current ++;
 }
-int Lista::buscar(int data){
+template <typename T>
+int Lista<T>::buscar(int data){
     for (int i =0; i< current; i++){
         if (lista[i] == data){
             return i;
@@ -47,7 +51,8 @@ int Lista::buscar(int data){
     }
     return -1;
 }
-void Lista::eliminar(int data){
+template <typename T>
+void Lista<T>::eliminar(int data){
     int a_eliminar = buscar(data);
     if (a_eliminar>-1){
         for (int i =a_eliminar; i<current -1 ; i++){

@@ -9,30 +9,16 @@ class Usuario {
         std::string name;
         long long id;
 
-        Lista amigos;
-        Lista publicaciones;
+        Lista<long> amigos;
+        Lista<long> publicaciones;
 
         Usuario(int, std::string);
-        void agregar_amigo(int);
-        void eliminar_amigo(int);
-        void agregar_publicacion(int);
+        void agregar_amigo(long long);
+        void eliminar_amigo(long long);
+        void agregar_publicacion(long long);
 
 };
 
-Usuario::Usuario(int _id, std::string _name){
-    name = _name;
-    id = _id;
-}
-void Usuario::agregar_amigo(int data){
-    amigos.insert(data);
-}
-
-void Usuario::eliminar_amigo(int data){
-    amigos.eliminar(data);
-}
-void Usuario::agregar_publicacion(int data){
-    publicaciones.insert(data);
-}
 
 
 #endif
