@@ -22,7 +22,6 @@ class Lista_enlazada{
 };
 
 
-
 Lista_enlazada::Lista_enlazada(){
     heap = nullptr;
 }

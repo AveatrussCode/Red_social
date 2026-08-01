@@ -62,5 +62,4 @@ void Lista<T>::eliminar(T data){
     }
 }
 
-
 #endif
