@@ -8,6 +8,7 @@ class Comentario {
         long long usuario;
         std::string comentario;
         Comentario(long long,long long, std::string);
+        bool operator==(const Comentario& otro);
 
 };
 Comentario::Comentario(long long _id_comentario, long long id_usuario, std::string _comentario){
@@ -15,8 +16,9 @@ Comentario::Comentario(long long _id_comentario, long long id_usuario, std::stri
     usuario = id_usuario;
     comentario = _comentario;
 }
-
-
+bool Comentario::operator==(const Comentario& otro) {
+    return id_comentario == otro.id_comentario;
+}
 
 #endif
 

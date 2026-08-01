@@ -14,14 +14,14 @@ class Post{
         std::string cabecera;
         std::string img; // no hay soporte para imagenes por que esto se correra en the temrinal, so, i neet a description of img
 
-        long like;
-        long dislike;
+        int like; //100
+        int dislike;
 
 
-        Lista<std::string> Comentarios;
+        Lista<Comentario> Comentarios;
 
         Post(long long, long long, int, std::string, std::string);
-        void new_comentario(std::string);
+        void new_comentario(Comentario);
 
 };
 Post::Post(long long usuario, long long _id_post,int _fecha, std::string _cabesera , std::string _img ){
@@ -33,13 +33,8 @@ Post::Post(long long usuario, long long _id_post,int _fecha, std::string _cabese
     like = 0;
     dislike = 0;
 }
-void Post::new_comentario(std::string comentario){
+void Post::new_comentario(Comentario comentario){
     Comentarios.insert(comentario);
-
-
 }
-
-
-
 
 #endif

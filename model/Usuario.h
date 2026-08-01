@@ -9,8 +9,8 @@ class Usuario {
         std::string name;
         long long id;
 
-        Lista<long> amigos;
-        Lista<long> publicaciones;
+        Lista<long long> amigos;
+        Lista<long long> publicaciones;
 
         Usuario(int, std::string);
         void agregar_amigo(long long);

@@ -5,8 +5,8 @@
 template <typename T>
 class Lista {
     public:
-        int current;
-        int size;
+        long long current;
+        long long size;
         T *lista;
     
         Lista();
@@ -29,7 +29,7 @@ Lista<T>::~Lista() {
     delete[] lista;
 }
 template <typename T>
-void Lista<T>::insert(int data){
+void Lista<T>::insert(T data){
     if (current == size){
         size = size *2;
         int* nuevo = new T[size];
@@ -43,7 +43,7 @@ void Lista<T>::insert(int data){
     current ++;
 }
 template <typename T>
-int Lista<T>::buscar(int data){
+int Lista<T>::buscar(T data){
     for (int i =0; i< current; i++){
         if (lista[i] == data){
             return i;
@@ -52,7 +52,7 @@ int Lista<T>::buscar(int data){
     return -1;
 }
 template <typename T>
-void Lista<T>::eliminar(int data){
+void Lista<T>::eliminar(T data){
     int a_eliminar = buscar(data);
     if (a_eliminar>-1){
         for (int i =a_eliminar; i<current -1 ; i++){
