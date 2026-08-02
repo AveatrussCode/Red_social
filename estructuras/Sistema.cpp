@@ -1,10 +1,8 @@
 #include "Sistema.h"
 
 Sistema::Sistema(){
-
     siguiente_usuario_id = 1;
     siguiente_post_id = 1;
-
     usuario_actual = nullptr;
 }
 

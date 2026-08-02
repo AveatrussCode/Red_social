@@ -10,17 +10,15 @@ class Post{
         long long id_usuario;
         long long id_post;
 
-        int fecha;
+        int fecha; // no se usa
         std::string cabecera;
         std::string img; // no hay soporte para imagenes por que esto se correra en the temrinal, so, i neet a description of img
 
-        int like; //100
+        int like; // 
         int dislike;
-
-
         Lista<Comentario> Comentarios;
-
         Post(long long, long long, int, std::string, std::string);
+        void dar_like();
         void new_comentario(Comentario);
 
 };

@@ -16,6 +16,7 @@ class Usuario {
         void agregar_amigo(long long);
         void eliminar_amigo(long long);
         void agregar_publicacion(long long);
+        
 
 };
 

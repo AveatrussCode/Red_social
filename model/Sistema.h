@@ -12,7 +12,8 @@ class Sistema{
 public:
     Hash<Usuario*> usuarios;
     Hash<Post*> posts;
-    long long siguiente_usuario_id;
+
+    long long siguiente_usuario_id; 
     long long siguiente_post_id;
     Usuario* usuario_actual;
     Sistema();
