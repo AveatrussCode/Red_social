@@ -1,5 +1,5 @@
 
-#include "Usuario.h"
+#include "../model/Usuario.h"
 #include <iostream>
 
 Usuario::Usuario(long long _id, std::string _name,std::string _fecha){

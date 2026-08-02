@@ -35,6 +35,10 @@ public:
     bool iniciar_sesion(long long id);
     void cerrar_sesion();
     void ver_perfil_actual();
+    void ver_amigos();
+    void ver_mis_posts();
+    bool publicar(std::string texto, std::string imagen );
+    void ver_feed();
 };
 
 #endif

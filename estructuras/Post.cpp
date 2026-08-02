@@ -1,6 +1,6 @@
 #include "../model/Post.h"
 #include <iostream>
-#include "Comentario.h"
+#include "../model/Comentario.h"
 
 Post::Post(long long usuario, long long _id_post,int _fecha, std::string _cabesera , std::string _img ){
     id_usuario = usuario;

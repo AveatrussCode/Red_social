@@ -1,4 +1,4 @@
-#include "CreadorBots.h"
+#include "../model/CreadorBots.h"
 
 #include <string>
 
@@ -361,11 +361,7 @@ void CreadorBots::crearInteracciones() {
             sistema.registrar_reaccion_usuario(idUsuario);
         }
         else {
-            Comentario nuevoComentario(
-                siguienteComentarioId++,
-                idUsuario,
-                generarComentario()
-            );
+            Comentario nuevoComentario(idUsuario,generarComentario());
 
             post->new_comentario(nuevoComentario);
             sistema.registrar_comentario_usuario(idUsuario);

@@ -32,7 +32,7 @@ template <typename T>
 void Lista<T>::insert(T data){
     if (current == size){
         size = size *2;
-        int* nuevo = new T[size];
+        T* nuevo = new T[size];
         for (int i =0; i< current; i ++){
             nuevo[i] = lista[i];
         }
