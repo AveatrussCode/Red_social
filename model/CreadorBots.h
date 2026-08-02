@@ -28,6 +28,14 @@ private:
 
     bool conectarUsuarios(long long idUsuario1, long long idUsuario2);
 
+    // Acciones atomicas reutilizables, tanto para la carga inicial
+    // como para la actividad continua que simula un sistema vivo.
+    void reaccionAleatoria();
+    void comentarioAleatorio();
+    void amistadAleatoria();
+    void publicacionAleatoria();
+    void nuevoBotAleatorio();
+
 public:
     CreadorBots(
         Sistema& sistema,
@@ -36,6 +44,12 @@ public:
 
     void generarAutomaticamente();
     void generar(long long cantidad);
+
+    // Ejecuta "cantidadAcciones" acciones aleatorias de bots (likes,
+    // comentarios, nuevas amistades, publicaciones y, ocasionalmente,
+    // nuevos bots). Pensado para llamarse despues de cada accion real
+    // del usuario, para que la comunidad se sienta activa todo el tiempo.
+    void ejecutarActividadAleatoria(long long cantidadAcciones = 100);
 
     long long cantidadBots() const;
     long long cantidadPosts() const;

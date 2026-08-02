@@ -10,7 +10,7 @@ int main(){
 
     generador.generarAutomaticamente();
 
-    menu_principal(sistema);
+    menu_principal(sistema, generador);
 
     return 0;
 }

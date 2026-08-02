@@ -376,3 +376,146 @@ long long CreadorBots::cantidadBots() const {
 long long CreadorBots::cantidadPosts() const {
     return idsPosts.current;
 }
+
+void CreadorBots::reaccionAleatoria() {
+    if (idsPosts.current == 0 || idsBots.current == 0) {
+        return;
+    }
+
+    long long idPost =
+        idsPosts.lista[randomEntre(0, idsPosts.current - 1)];
+
+    long long idUsuario =
+        idsBots.lista[randomEntre(0, idsBots.current - 1)];
+
+    Post* post = sistema.buscar_post(idPost);
+    if (post == nullptr) {
+        return;
+    }
+
+    if (randomEntre(0, 5) == 0) {
+        post->dislike++;
+    } else {
+        post->dar_like();
+    }
+
+    sistema.registrar_reaccion_usuario(idUsuario);
+}
+
+void CreadorBots::comentarioAleatorio() {
+    if (idsPosts.current == 0 || idsBots.current == 0) {
+        return;
+    }
+
+    long long idPost =
+        idsPosts.lista[randomEntre(0, idsPosts.current - 1)];
+
+    long long idUsuario =
+        idsBots.lista[randomEntre(0, idsBots.current - 1)];
+
+    Post* post = sistema.buscar_post(idPost);
+    if (post == nullptr) {
+        return;
+    }
+
+    Comentario nuevo(idUsuario, generarComentario());
+    post->new_comentario(nuevo);
+    sistema.registrar_comentario_usuario(idUsuario);
+}
+
+void CreadorBots::amistadAleatoria() {
+    if (idsBots.current < 2) {
+        return;
+    }
+
+    long long id1 = idsBots.lista[randomEntre(0, idsBots.current - 1)];
+    long long id2 = idsBots.lista[randomEntre(0, idsBots.current - 1)];
+
+    conectarUsuarios(id1, id2);
+}
+
+void CreadorBots::publicacionAleatoria() {
+    if (idsBots.current == 0) {
+        return;
+    }
+
+    long long idBot = idsBots.lista[randomEntre(0, idsBots.current - 1)];
+
+    int dia = static_cast<int>(randomEntre(1, 28));
+    int fecha = 20260800 + dia;
+
+    std::string imagen;
+    if (randomEntre(0, 3) == 0) {
+        imagen = "Fotografia simulada del bot";
+    }
+
+    // Sistema::crear_post ya agrega el post al usuario propietario,
+    // asi que aqui no hace falta duplicar esa linea.
+    Post* nuevoPost =
+        sistema.crear_post(idBot, fecha, generarTextoPost(), imagen);
+
+    if (nuevoPost != nullptr) {
+        idsPosts.insert(nuevoPost->id_post);
+    }
+}
+
+void CreadorBots::nuevoBotAleatorio() {
+    std::string nombre = generarNombre(idsBots.current + 1);
+
+    Usuario* nuevoBot = sistema.registrar_usuario(nombre);
+    if (nuevoBot == nullptr) {
+        return;
+    }
+
+    idsBots.insert(nuevoBot->id);
+
+    // Lo conectamos con algunos bots existentes para que no
+    // ingrese aislado a la red.
+    if (idsBots.current > 1) {
+        long long cantidadAmigos = randomEntre(1, 4);
+        for (long long i = 0; i < cantidadAmigos; i++) {
+            long long idOtroBot =
+                idsBots.lista[randomEntre(0, idsBots.current - 2)];
+            conectarUsuarios(nuevoBot->id, idOtroBot);
+        }
+    }
+}
+
+void CreadorBots::ejecutarActividadAleatoria(long long cantidadAcciones) {
+    if (cantidadAcciones < 1) {
+        return;
+    }
+
+    // Si esta clase se usa sin haber generado bots antes, creamos
+    // un pequeno lote inicial para tener con quien interactuar.
+    if (idsBots.current == 0) {
+        crearBots(50);
+        crearAmistades();
+        crearPublicaciones();
+    }
+
+    for (long long i = 0; i < cantidadAcciones; i++) {
+        long long tipoAccion = randomEntre(0, 99);
+
+        if (tipoAccion < 55) {
+            // 0-54: reaccion (like/dislike) a un post existente.
+            reaccionAleatoria();
+        }
+        else if (tipoAccion < 80) {
+            // 55-79: comentario en un post existente.
+            comentarioAleatorio();
+        }
+        else if (tipoAccion < 92) {
+            // 80-91: nueva amistad entre bots existentes.
+            amistadAleatoria();
+        }
+        else if (tipoAccion < 98) {
+            // 92-97: un bot publica algo nuevo.
+            publicacionAleatoria();
+        }
+        else {
+            // 98-99: se une un bot completamente nuevo (crecimiento organico).
+            nuevoBotAleatorio();
+        }
+    }
+}
