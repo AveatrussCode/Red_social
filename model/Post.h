@@ -16,10 +16,11 @@ class Post{
 
         int like;
         int dislike;
-        Lista<Comentario> Comentarios;
+        Lista<Comentario> comentarios;
         Post(long long, long long, int, std::string, std::string);
         void dar_like();
         void new_comentario(Comentario);
+        void mostrar();
 
 };
 

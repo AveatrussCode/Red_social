@@ -27,6 +27,14 @@ public:
     bool registrar_reaccion_usuario(long long id_usuario);
     void mostrar_usuarios_activos(int cantidad);
     void mostrar_posts_mas_reaccionados(int cantidad);
+    bool agregar_amigo(long long id1, long long id2);
+    bool comentar_post(long long id_post, long long id_usuario, std::string texto );
+    bool reaccionar_like(long long id_post);
+    void mostrar_usuario(long long id);
+    void mostrar_post(long long id);
+    bool iniciar_sesion(long long id);
+    void cerrar_sesion();
+    void ver_perfil_actual();
 };
 
 #endif

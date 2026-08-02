@@ -1,12 +1,12 @@
 
 #include "Usuario.h"
+#include <iostream>
 
 Usuario::Usuario(long long _id, std::string _name,std::string _fecha){
     name = _name;
     id = _id;
     Correo = _name + std::to_string(_id) + "@facebook2.com";
     fecha = _fecha;
-    num_publicaciones = 0;
     seguidores = 0;
     cantidad_amigos = 0;
     reacciones_resividas = 0;
@@ -24,7 +24,6 @@ void Usuario::eliminar_amigo(long long data){
 }
 void Usuario::agregar_publicacion(long long data){
     publicaciones.insert(data);
-    num_publicaciones++;
 }
 
 void Usuario::registrar_comentario(){
@@ -46,4 +45,25 @@ void Usuario::nuevo_seguidor(){
 }
 void Usuario::agregar_reacciones(){
     reacciones_resividas++;
+}
+void Usuario::mostrar(){
+
+    std::cout << "ID: "
+              << id << "\n";
+
+    std::cout << "Nombre: "
+              << name << "\n";
+
+    std::cout << "Correo: "
+              << Correo << "\n";
+
+    std::cout << "Amigos: "
+              << cantidad_amigos << "\n";
+
+    std::cout << "Seguidores: "
+              << seguidores << "\n";
+
+    std::cout << "Actividad: "
+              << calcular_actividad()
+              << "\n";
 }

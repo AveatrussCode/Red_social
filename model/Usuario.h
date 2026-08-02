@@ -13,7 +13,6 @@ class Usuario {
         std::string name;
         std::string Correo;
         std::string fecha;
-        int num_publicaciones;
         int seguidores;
         int cantidad_amigos;
         long long reacciones_resividas;
@@ -34,6 +33,7 @@ class Usuario {
         long long calcular_actividad() const;
         void nuevo_seguidor();
         void agregar_reacciones();
+        void mostrar();
 
 };
 

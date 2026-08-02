@@ -47,7 +47,9 @@ template <typename V>
 void Hash<V>::insertar(long long id, V valor){
     long long posicion = hash_funcion(id);
     bool nuevo = id_list[posicion].insert(id, valor);
-    cantidad++;
+    if(nuevo){
+        cantidad++;
+    }
 }
 
 template <typename V>
@@ -60,7 +62,9 @@ template <typename V>
 bool Hash<V>::eliminar(long long id){
     long long posicion = hash_funcion(id);
     bool ok = id_list[posicion].eliminar(id);
-    cantidad--;
+    if(ok){
+        cantidad--;
+    }
     return ok;
 }
 

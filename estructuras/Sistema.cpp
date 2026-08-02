@@ -1,5 +1,6 @@
 #include "Sistema.h"
 #include "HeapTree.h"
+#include "Comentario.h"
 #include <iostream>
 
 namespace {
@@ -154,4 +155,123 @@ void Sistema::mostrar_posts_mas_reaccionados(int cantidad){
                   << ", likes: " << post->like
                   << ", dislikes: " << post->dislike << ")\n";
     }
+}
+bool Sistema::agregar_amigo(long long id1, long long id2){
+
+    Usuario* u1 = buscar_usuario(id1);
+    Usuario* u2 = buscar_usuario(id2);
+    if(!u1 || !u2){
+        return false;
+    }
+    u1->agregar_amigo(id2);
+    u2->agregar_amigo(id1);
+
+    return true;
+}
+
+bool Sistema::comentar_post(
+    long long id_post,
+    long long id_usuario,
+    std::string texto){
+
+    Post* post = buscar_post(id_post);
+    Usuario* usuario = buscar_usuario(id_usuario);
+
+    if(!post || !usuario){
+        return false;
+    }
+
+    Comentario nuevo(id_usuario,texto);
+
+    post->new_comentario(nuevo);
+
+    usuario->registrar_comentario();
+
+    return true;
+}
+
+bool Sistema::reaccionar_like(long long id_post){
+    Post* post = buscar_post(id_post);
+    if(!post){
+        return false;
+    }
+
+    post->dar_like();
+
+    Usuario* propietario =
+        buscar_usuario(post->id_usuario);
+
+    if(propietario){
+        propietario->agregar_reacciones();
+    }
+
+    return true;
+}
+void Sistema::mostrar_usuario(
+    long long id){
+
+    Usuario* usuario = buscar_usuario(id);
+
+    if(usuario){
+        usuario->mostrar();
+    }
+}
+void Sistema::mostrar_post(
+    long long id){
+
+    Post* post = buscar_post(id);
+
+    if(post){
+        post->mostrar();
+    }
+}
+
+bool Sistema::iniciar_sesion(long long id){
+
+    Usuario* usuario = buscar_usuario(id);
+
+    if(usuario == nullptr){
+        return false;
+    }
+
+    usuario_actual = usuario;
+    return true;
+}
+
+void Sistema::cerrar_sesion(){
+    usuario_actual = nullptr;
+}
+
+void Sistema::ver_perfil_actual(){
+
+    if(usuario_actual == nullptr){
+        std::cout << "No hay sesion iniciada\n";
+        return;
+    }
+
+    std::cout << "\n=== PERFIL ===\n";
+
+    std::cout << "ID: "
+              << usuario_actual->id
+              << "\n";
+
+    std::cout << "Nombre: "
+              << usuario_actual->name
+              << "\n";
+
+    std::cout << "Correo: "
+              << usuario_actual->Correo
+              << "\n";
+
+    std::cout << "Amigos: "
+              << usuario_actual->cantidad_amigos
+              << "\n";
+
+    std::cout << "Seguidores: "
+              << usuario_actual->seguidores
+              << "\n";
+
+    std::cout << "Actividad: "
+              << usuario_actual->calcular_actividad()
+              << "\n";
 }
