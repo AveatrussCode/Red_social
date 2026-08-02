@@ -48,22 +48,10 @@ void Usuario::agregar_reacciones(){
 }
 void Usuario::mostrar(){
 
-    std::cout << "ID: "
-              << id << "\n";
-
-    std::cout << "Nombre: "
-              << name << "\n";
-
-    std::cout << "Correo: "
-              << Correo << "\n";
-
-    std::cout << "Amigos: "
-              << cantidad_amigos << "\n";
-
-    std::cout << "Seguidores: "
-              << seguidores << "\n";
-
-    std::cout << "Actividad: "
-              << calcular_actividad()
-              << "\n";
+    std::cout << "ID: "<< id << "\n";
+    std::cout << "Nombre: "<< name << "\n";
+    std::cout << "Correo: "<< Correo << "\n";
+    std::cout << "Amigos: "<< cantidad_amigos << "\n";
+    std::cout << "Seguidores: "<< seguidores << "\n";
+    std::cout << "Actividad: "<< calcular_actividad()<< "\n";
 }

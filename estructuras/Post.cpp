@@ -21,23 +21,12 @@ void Post::dar_like(){
 
 void Post::mostrar(){
 
-    std::cout << "Post ID: "
-              << id_post << "\n";
+    std::cout << "Post ID: " << id_post << "\n";
 
-    std::cout << "Usuario: "
-              << id_usuario << "\n";
-
-    std::cout << "Cabecera: "
-              << cabecera << "\n";
-
-    std::cout << "Imagen: "
-              << img << "\n";
-
-    std::cout << "Likes: "
-              << like << "\n";
-
-    std::cout << "Dislikes: "
-              << dislike << "\n";
-
+    std::cout << "Usuario: " << id_usuario << "\n";
+    std::cout << "Cabecera: " << cabecera << "\n";
+    std::cout << "Imagen: " << img << "\n";
+    std::cout << "Likes: "  << like << "\n";
+    std::cout << "Dislikes: " << dislike << "\n";
     std::cout << "Comentarios: "<< comentarios.current<< "\n";
 }

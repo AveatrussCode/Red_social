@@ -1,9 +1,6 @@
 #ifndef COLA_H
 #define COLA_H
 
-// Cola generica (FIFO) implementada con lista enlazada propia.
-// Se usa para el recorrido BFS del grafo de amistades.
-// No utiliza ninguna estructura de la STL.
 
 template <typename T>
 class NodoCola {
@@ -13,8 +10,7 @@ public:
 
     NodoCola(T _valor) {
         valor = _valor;
-        siguiente = nullptr;
-    }
+        siguiente = nullptr;}
 };
 
 template <typename T>

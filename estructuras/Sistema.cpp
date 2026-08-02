@@ -251,29 +251,12 @@ void Sistema::ver_perfil_actual(){
 
     std::cout << "\n=== PERFIL ===\n";
 
-    std::cout << "ID: "
-              << usuario_actual->id
-              << "\n";
-
-    std::cout << "Nombre: "
-              << usuario_actual->name
-              << "\n";
-
-    std::cout << "Correo: "
-              << usuario_actual->Correo
-              << "\n";
-
-    std::cout << "Amigos: "
-              << usuario_actual->cantidad_amigos
-              << "\n";
-
-    std::cout << "Seguidores: "
-              << usuario_actual->seguidores
-              << "\n";
-
-    std::cout << "Actividad: "
-              << usuario_actual->calcular_actividad()
-              << "\n";
+    std::cout << "ID: " << usuario_actual->id << "\n";
+    std::cout << "Nombre: " << usuario_actual->name << "\n";
+    std::cout << "Correo: " << usuario_actual->Correo << "\n";
+    std::cout << "Amigos: " << usuario_actual->cantidad_amigos << "\n";
+    std::cout << "Seguidores: " << usuario_actual->seguidores << "\n";
+    std::cout << "Actividad: " << usuario_actual->calcular_actividad() << "\n";
 }
 
 void Sistema::ver_amigos(){
@@ -284,24 +267,14 @@ void Sistema::ver_amigos(){
 
     std::cout << "\n=== AMIGOS ===\n";
 
-    for(
-        long long i=0;
-        i<usuario_actual->amigos.current;
-        i++
-    ){
+    for(long long i=0; i<usuario_actual->amigos.current; i++){
 
-        long long id =
-            usuario_actual->amigos.lista[i];
+        long long id = usuario_actual->amigos.lista[i];
 
-        Usuario* amigo =
-            buscar_usuario(id);
+        Usuario* amigo = buscar_usuario(id);
 
         if(amigo){
-            std::cout
-                << amigo->id
-                << " - "
-                << amigo->name
-                << "\n";
+            std::cout << amigo->id<< " - " << amigo->name << "\n";
         }
     }
 }
@@ -311,33 +284,15 @@ void Sistema::ver_mis_posts(){
         return;
     }
 
-    for(
-        long long i=0;
-        i<usuario_actual->publicaciones.current;
-        i++
-    ){
-
-        long long idPost =
-            usuario_actual->publicaciones.lista[i];
-
-        Post* post =
-            buscar_post(idPost);
+    for(long long i=0;i<usuario_actual->publicaciones.current;i++){
+        long long idPost = usuario_actual->publicaciones.lista[i];
+        Post* post = buscar_post(idPost);
 
         if(post){
 
-            std::cout
-                << "\nPOST "
-                << post->id_post
-                << "\n";
-
-            std::cout
-                << post->cabecera
-                << "\n";
-
-            std::cout
-                << "Likes: "
-                << post->like
-                << "\n";
+            std::cout << "\nPOST " << post->id_post  << "\n";
+            std::cout << post->cabecera  << "\n";
+            std::cout << "Likes: " << post->like<< "\n";
         }
     }
 }
@@ -360,49 +315,26 @@ void Sistema::ver_feed(){
     std::cout
         << "\n=== FEED ===\n";
 
-    for(
-        long long i=0;
-        i<usuario_actual->amigos.current;
-        i++
-    ){
+    for(long long i=0;i<usuario_actual->amigos.current;i++){
+        long long idAmigo =usuario_actual->amigos.lista[i];
 
-        long long idAmigo =
-            usuario_actual->amigos.lista[i];
-
-        Usuario* amigo =
-            buscar_usuario(idAmigo);
+        Usuario* amigo = buscar_usuario(idAmigo);
 
         if(!amigo){
             continue;
         }
 
-        for(
-            long long j=0;
-            j<amigo->publicaciones.current;
-            j++
-        ){
+        for(long long j=0;j<amigo->publicaciones.current;j++){
 
-            long long idPost =
-                amigo->publicaciones.lista[j];
-
-            Post* post =
-                buscar_post(idPost);
+            long long idPost = amigo->publicaciones.lista[j];
+            Post* post = buscar_post(idPost);
 
             if(post){
+                std::cout<< "\n"  << amigo->name << "\n";
 
-                std::cout
-                    << "\n"
-                    << amigo->name
-                    << "\n";
+                std::cout<< post->cabecera << "\n";
 
-                std::cout
-                    << post->cabecera
-                    << "\n";
-
-                std::cout
-                    << "Likes: "
-                    << post->like
-                    << "\n";
+                std::cout<< "Likes: "<< post->like << "\n";
             }
         }
     }

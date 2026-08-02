@@ -2,29 +2,14 @@
 
 #include <string>
 
-CreadorBots::CreadorBots(
-    Sistema& sistema,
-    unsigned long long semilla
-) : sistema(sistema) {
-
+CreadorBots::CreadorBots( Sistema& sistema, unsigned long long semilla) : sistema(sistema) {
     if (semilla == 0) {
         semilla = 88172645463325252ULL;
     }
-
     estadoRandom = semilla;
     siguienteComentarioId = 1;
 }
 
-/*
-    Generador pseudoaleatorio Xorshift.
-
-    No utiliza:
-    - vector
-    - map
-    - unordered_map
-    - queue
-    - ninguna estructura STL
-*/
 unsigned long long CreadorBots::siguienteRandom() {
     estadoRandom ^= estadoRandom << 13;
     estadoRandom ^= estadoRandom >> 7;
@@ -33,19 +18,14 @@ unsigned long long CreadorBots::siguienteRandom() {
     return estadoRandom;
 }
 
-long long CreadorBots::randomEntre(
-    long long minimo,
-    long long maximo
-) {
+long long CreadorBots::randomEntre( long long minimo,long long maximo) {
     if (maximo <= minimo) {
         return minimo;
     }
 
-    unsigned long long rango =
-        static_cast<unsigned long long>(maximo - minimo + 1);
+    unsigned long long rango = static_cast<unsigned long long>(maximo - minimo + 1);
 
-    return minimo +
-        static_cast<long long>(siguienteRandom() % rango);
+    return minimo + static_cast<long long>(siguienteRandom() % rango);
 }
 
 std::string CreadorBots::generarNombre(long long numeroBot) {
@@ -66,11 +46,9 @@ std::string CreadorBots::generarNombre(long long numeroBot) {
     const long long cantidadNombres = 16;
     const long long cantidadApellidos = 16;
 
-    long long posicionNombre =
-        randomEntre(0, cantidadNombres - 1);
+    long long posicionNombre = randomEntre(0, cantidadNombres - 1);
 
-    long long posicionApellido =
-        randomEntre(0, cantidadApellidos - 1);
+    long long posicionApellido = randomEntre(0, cantidadApellidos - 1);
 
     std::string resultado;
 
@@ -125,9 +103,7 @@ std::string CreadorBots::generarComentario() {
 
     const long long cantidadComentarios = 12;
 
-    return comentarios[
-        randomEntre(0, cantidadComentarios - 1)
-    ];
+    return comentarios[randomEntre(0, cantidadComentarios - 1)];
 }
 
 void CreadorBots::generarAutomaticamente() {
@@ -154,8 +130,7 @@ void CreadorBots::crearBots(long long cantidad) {
     for (long long i = 0; i < cantidad; i++) {
         std::string nombre = generarNombre(i + 1);
 
-        Usuario* nuevoBot =
-            sistema.registrar_usuario(nombre);
+        Usuario* nuevoBot = sistema.registrar_usuario(nombre);
 
         if (nuevoBot != nullptr) {
             idsBots.insert(nuevoBot->id);
@@ -171,23 +146,14 @@ bool CreadorBots::conectarUsuarios(
         return false;
     }
 
-    Usuario* usuario1 =
-        sistema.buscar_usuario(idUsuario1);
+    Usuario* usuario1 = sistema.buscar_usuario(idUsuario1);
 
-    Usuario* usuario2 =
-        sistema.buscar_usuario(idUsuario2);
+    Usuario* usuario2 = sistema.buscar_usuario(idUsuario2);
 
     if (usuario1 == nullptr || usuario2 == nullptr) {
         return false;
     }
 
-    /*
-        Evitamos amistades repetidas.
-
-        amigos.buscar(...) devuelve:
-        - posición si existe
-        - -1 si no existe
-    */
     if (usuario1->amigos.buscar(idUsuario2) != -1) {
         return false;
     }
@@ -206,13 +172,6 @@ void CreadorBots::crearAmistades() {
     for (long long i = 0; i < idsBots.current; i++) {
         long long idBotActual = idsBots.lista[i];
 
-        /*
-            Cada bot intenta agregar entre 2 y 15 amigos.
-
-            Puede terminar con menos, porque:
-            - no puede agregarse a sí mismo;
-            - no se permiten amistades duplicadas.
-        */
         long long cantidadAmigos =
             randomEntre(2, 15);
 
@@ -232,31 +191,16 @@ void CreadorBots::crearPublicaciones() {
     for (long long i = 0; i < idsBots.current; i++) {
         long long idBot = idsBots.lista[i];
 
-        /*
-            Cada bot crea entre 1 y 5 publicaciones.
-        */
         long long cantidadPublicaciones =
             randomEntre(1, 5);
 
-        for (
-            long long publicacion = 0;
-            publicacion < cantidadPublicaciones;
-            publicacion++
-        ) {
-            /*
-                Fecha simulada del 1 al 28 de agosto de 2026.
+        for ( long long publicacion = 0; publicacion < cantidadPublicaciones; publicacion++) {
 
-                Se usa hasta el día 28 para evitar fechas inválidas.
-            */
             int dia = static_cast<int>(randomEntre(1, 28));
             int fecha = 20260800 + dia;
 
             std::string texto = generarTextoPost();
 
-            /*
-                Como el programa no maneja imágenes reales,
-                guardamos una descripción.
-            */
             std::string imagen;
 
             if (randomEntre(0, 3) == 0) {
@@ -265,32 +209,15 @@ void CreadorBots::crearPublicaciones() {
                 imagen = "";
             }
 
-            Post* nuevoPost = sistema.crear_post(
-                idBot,
-                fecha,
-                texto,
-                imagen
-            );
+            Post* nuevoPost = sistema.crear_post( idBot, fecha, texto, imagen);
 
             if (nuevoPost != nullptr) {
                 idsPosts.insert(nuevoPost->id_post);
 
-                Usuario* propietario =
-                    sistema.buscar_usuario(idBot);
-
-                /*
-                    El Sistema actual no agrega automáticamente
-                    la publicación al usuario, por eso se hace aquí.
-
-                    Cuando corrijas Sistema::crear_post para que lo
-                    haga automáticamente, elimina estas líneas.
-                */
+                Usuario* propietario = sistema.buscar_usuario(idBot);
+      
                 if (propietario != nullptr) {
-                    if (
-                        propietario->publicaciones.buscar(
-                            nuevoPost->id_post
-                        ) == -1
-                    ) {
+                    if ( propietario->publicaciones.buscar( nuevoPost->id_post ) == -1) {
                         propietario->agregar_publicacion(
                             nuevoPost->id_post
                         );
@@ -302,39 +229,20 @@ void CreadorBots::crearPublicaciones() {
 }
 
 void CreadorBots::crearInteracciones() {
-    if (
-        idsBots.current == 0 ||
-        idsPosts.current == 0
-    ) {
+    if (  idsBots.current == 0 || idsPosts.current == 0) {
         return;
     }
-
-    /*
-        Número de interacciones proporcional a los bots.
-
-        Por ejemplo:
-        - 1,000 bots  -> aproximadamente 8,000 interacciones
-        - 20,000 bots -> aproximadamente 160,000 interacciones
-    */
     long long cantidadInteracciones =
         idsBots.current * 8;
 
-    for (
-        long long i = 0;
-        i < cantidadInteracciones;
-        i++
-    ) {
-        long long posicionUsuario =
-            randomEntre(0, idsBots.current - 1);
+    for ( long long i = 0; i < cantidadInteracciones; i++) {
+        long long posicionUsuario = randomEntre(0, idsBots.current - 1);
 
-        long long posicionPost =
-            randomEntre(0, idsPosts.current - 1);
+        long long posicionPost = randomEntre(0, idsPosts.current - 1);
 
-        long long idUsuario =
-            idsBots.lista[posicionUsuario];
+        long long idUsuario = idsBots.lista[posicionUsuario];
 
-        long long idPost =
-            idsPosts.lista[posicionPost];
+        long long idPost = idsPosts.lista[posicionPost];
 
         Post* post = sistema.buscar_post(idPost);
 
@@ -342,14 +250,6 @@ void CreadorBots::crearInteracciones() {
             continue;
         }
 
-        /*
-            Tipo de interacción:
-            0-5: like
-            6: dislike
-            7-9: comentario
-
-            Así los likes son más frecuentes.
-        */
         long long tipoInteraccion = randomEntre(0, 9);
 
         if (tipoInteraccion <= 5) {
@@ -449,8 +349,6 @@ void CreadorBots::publicacionAleatoria() {
         imagen = "Fotografia simulada del bot";
     }
 
-    // Sistema::crear_post ya agrega el post al usuario propietario,
-    // asi que aqui no hace falta duplicar esa linea.
     Post* nuevoPost =
         sistema.crear_post(idBot, fecha, generarTextoPost(), imagen);
 
@@ -469,8 +367,6 @@ void CreadorBots::nuevoBotAleatorio() {
 
     idsBots.insert(nuevoBot->id);
 
-    // Lo conectamos con algunos bots existentes para que no
-    // ingrese aislado a la red.
     if (idsBots.current > 1) {
         long long cantidadAmigos = randomEntre(1, 4);
         for (long long i = 0; i < cantidadAmigos; i++) {
@@ -486,8 +382,6 @@ void CreadorBots::ejecutarActividadAleatoria(long long cantidadAcciones) {
         return;
     }
 
-    // Si esta clase se usa sin haber generado bots antes, creamos
-    // un pequeno lote inicial para tener con quien interactuar.
     if (idsBots.current == 0) {
         crearBots(50);
         crearAmistades();
@@ -498,23 +392,19 @@ void CreadorBots::ejecutarActividadAleatoria(long long cantidadAcciones) {
         long long tipoAccion = randomEntre(0, 99);
 
         if (tipoAccion < 55) {
-            // 0-54: reaccion (like/dislike) a un post existente.
             reaccionAleatoria();
         }
         else if (tipoAccion < 80) {
-            // 55-79: comentario en un post existente.
             comentarioAleatorio();
         }
         else if (tipoAccion < 92) {
-            // 80-91: nueva amistad entre bots existentes.
             amistadAleatoria();
         }
         else if (tipoAccion < 98) {
-            // 92-97: un bot publica algo nuevo.
             publicacionAleatoria();
         }
         else {
-            // 98-99: se une un bot completamente nuevo (crecimiento organico).
+
             nuevoBotAleatorio();
         }
     }

@@ -28,8 +28,6 @@ private:
 
     bool conectarUsuarios(long long idUsuario1, long long idUsuario2);
 
-    // Acciones atomicas reutilizables, tanto para la carga inicial
-    // como para la actividad continua que simula un sistema vivo.
     void reaccionAleatoria();
     void comentarioAleatorio();
     void amistadAleatoria();

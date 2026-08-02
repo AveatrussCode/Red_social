@@ -4,6 +4,7 @@ project(Facebook2)
 
 add_executable(hi
     estructuras/CreadorBots.cpp
+    estructuras/GrafoAmistad.cpp
     estructuras/Interfaz.cpp
     estructuras/Post.cpp
     estructuras/Sistema.cpp

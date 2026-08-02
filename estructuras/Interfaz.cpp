@@ -10,9 +10,6 @@ const char* MESES[] = {
     "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
 };
 
-// Convierte fechas guardadas como AAAAMMDD (ej. 20260802) en texto
-// legible ("2 de agosto de 2026"). Si el formato no calza, avisa
-// en vez de mostrar un numero crudo.
 std::string formatear_fecha(int fecha){
     int anio = fecha / 10000;
     int mes = (fecha / 100) % 100;
@@ -49,8 +46,6 @@ void separador(){
 }
 
 // Dispara actividad de bots en segundo plano despues de una accion
-// real del usuario, para que la comunidad se sienta viva. Solo avisa
-// algo al usuario cuando hay un cambio visible (usuarios nuevos), para
 // no saturar la pantalla con ruido en cada paso.
 void activar_vida_de_fondo(Sistema& sistema, CreadorBots& bots){
     long long usuarios_antes = sistema.usuarios.tamano();
