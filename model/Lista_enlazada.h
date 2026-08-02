@@ -2,54 +2,112 @@
 #define LISTA_ENLAZADA_H
 
 
+
+template <class V>
 class Nodo{
 
 public:
-    long long data;
+    long long id;
+    V valor;
     Nodo* next;
-    Nodo(long long _data){
-        data = _data;
+    Nodo(long long _id, V _valor){
+        id = _id;
+        valor = _valor;
         next = nullptr;
     }
 };
+
+template <class V>
 class Lista_enlazada{
     public:
-        Nodo *heap;
+        Nodo<V> *heap;
         Lista_enlazada();
-        void insert(long long data);
-        bool eliminar(long long data);
-        bool find(Nodo**&p, long long);
+        ~Lista_enlazada();
+
+    
+        bool insert(long long id, V valor);
+
+        bool eliminar(long long id);
+        bool buscar(long long id, V& resultado);
+        bool existe(long long id);
+        bool find(Nodo<V>**&p, long long id);
 };
 
 
-Lista_enlazada::Lista_enlazada(){
+template <class V>
+Lista_enlazada<V>::Lista_enlazada(){
     heap = nullptr;
 }
-void Lista_enlazada::insert(long long data){
-    Nodo * nuevo = new Nodo(data);
-    nuevo->next = heap;
-    heap = nuevo;
+
+template <class V>
+Lista_enlazada<V>::~Lista_enlazada(){
+    Nodo<V>* actual = heap;
+    while(actual){
+        Nodo<V>* siguiente = actual->next;
+        delete actual;
+        actual = siguiente;
+    }
 }
 
-bool Lista_enlazada::eliminar(long long data){
-    Nodo **p;
-    if (!find(p,data)){
+template <class V>
+bool Lista_enlazada<V>::insert(long long id, V valor){
+   
+    Nodo<V>* actual = heap;
+    while(actual){
+        if (actual->id == id){
+            actual->valor = valor;
+            return false; 
+        }
+        actual = actual->next;
+    }
+    Nodo<V> * nuevo = new Nodo<V>(id, valor);
+    nuevo->next = heap;
+    heap = nuevo;
+    return true; 
+}
+
+template <class V>
+bool Lista_enlazada<V>::eliminar(long long id){
+    Nodo<V> **p;
+    if (!find(p, id)){
         return false;
     }
-    Nodo *tmp = *p;
+    Nodo<V> *tmp = *p;
     *p = (*p)->next;
     delete tmp;
     return true;
-
-
 }
-bool Lista_enlazada::find(Nodo**&p, long long data){
+
+template <class V>
+bool Lista_enlazada<V>::buscar(long long id, V& resultado){
+    Nodo<V>* actual = heap;
+    while(actual){
+        if (actual->id == id){
+            resultado = actual->valor;
+            return true;
+        }
+        actual = actual->next;
+    }
+    return false;
+}
+
+template <class V>
+bool Lista_enlazada<V>::existe(long long id){
+    Nodo<V>* actual = heap;
+    while(actual){
+        if (actual->id == id) return true;
+        actual = actual->next;
+    }
+    return false;
+}
+
+template <class V>
+bool Lista_enlazada<V>::find(Nodo<V>**&p, long long id){
     p = &heap;
-    while(*p && (*p)->data != data){
+    while(*p && (*p)->id != id){
         p = &((*p)->next);
     }
     return *p != nullptr;
-
 }
 
 #endif
