@@ -20,38 +20,6 @@ La principal restricción del proyecto fue **no utilizar contenedores de la STL*
 * Ranking de publicaciones con más reacciones.
 * Generación automática de bots para poblar la red social y realizar interacciones simuladas.
 
----
-
-## Compilación
-
-### Usando g++
-
-```bash
-g++ -std=c++17 -O2 -o facebook2 estructuras/*.cpp main.cpp
-```
-
-### Ejecutar
-
-```bash
-./facebook2
-```
-
----
-
-## Compilación con CMake
-
-```bash
-cmake -B build
-cmake --build build
-```
-
-### Ejecutar
-
-```bash
-./build/facebook2
-```
-
----
 
 ## Generación automática de datos
 
@@ -66,34 +34,6 @@ Los bots realizan acciones como:
 * Dar likes y dislikes.
 
 Esto permite probar el comportamiento de la aplicación con una cantidad considerable de datos sin necesidad de ingresar información manualmente.
-
----
-
-## Estructura del proyecto
-
-```text
-Facebook2/
-│
-├── model/
-│   ├── Usuario.h
-│   ├── Post.h
-│   ├── Comentario.h
-│   ├── Listas.h
-│   ├── Lista_enlazada.h
-│   ├── Tabla_hash.h
-│   └── HeapTree.h
-│
-├── estructuras/
-│   ├── Usuario.cpp
-│   ├── Post.cpp
-│   ├── Sistema.cpp
-│   ├── CreadorBots.cpp
-│   └── Interfaz.cpp
-│
-├── main.cpp
-├── CMakeLists.txt
-└── README.md
-```
 
 ---
 
