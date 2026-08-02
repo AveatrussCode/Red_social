@@ -7,15 +7,24 @@
 class Usuario {
     public:
         std::string name;
+        std::string Correo;
+        std::string fecha;
+        int num_publicaciones;
+        int seguidores;
+        int cantidad_amigos;
+        long long reacciones_resividas;
+
         long long id;
 
         Lista<long long> amigos;
         Lista<long long> publicaciones;
 
-        Usuario(int, std::string);
+        Usuario(long long, std::string, std::string);
         void agregar_amigo(long long);
         void eliminar_amigo(long long);
         void agregar_publicacion(long long);
+        void nuevo_seguidor();
+        void agregar_reacciones();
         
 
 };

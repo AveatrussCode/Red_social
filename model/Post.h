@@ -14,7 +14,7 @@ class Post{
         std::string cabecera;
         std::string img; // no hay soporte para imagenes por que esto se correra en the temrinal, so, i neet a description of img
 
-        int like; // 
+        int like;
         int dislike;
         Lista<Comentario> Comentarios;
         Post(long long, long long, int, std::string, std::string);
