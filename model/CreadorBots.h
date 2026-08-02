@@ -31,7 +31,8 @@ private:
     void reaccionAleatoria();
     void comentarioAleatorio();
     void amistadAleatoria();
-    void publicacionAleatoria();
+    void publicacionAleatoria(); 
+    
     void nuevoBotAleatorio();
 
 public:
