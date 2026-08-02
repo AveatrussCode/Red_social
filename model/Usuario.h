@@ -11,6 +11,13 @@ class Usuario {
         static constexpr long long PESO_REACCION = 1;
 
         std::string name;
+        std::string Correo;
+        std::string fecha;
+        int num_publicaciones;
+        int seguidores;
+        int cantidad_amigos;
+        long long reacciones_resividas;
+
         long long id;
 
         Lista<long long> amigos;
@@ -18,13 +25,15 @@ class Usuario {
         long long comentarios_realizados;
         long long reacciones_realizadas;
 
-        Usuario(int, std::string);
+        Usuario(long long, std::string, std::string = "");
         void agregar_amigo(long long);
         void eliminar_amigo(long long);
         void agregar_publicacion(long long);
         void registrar_comentario();
         void registrar_reaccion();
         long long calcular_actividad() const;
+        void nuevo_seguidor();
+        void agregar_reacciones();
 
 };
 

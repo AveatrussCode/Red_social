@@ -12,3 +12,7 @@ Post::Post(long long usuario, long long _id_post,int _fecha, std::string _cabese
 void Post::new_comentario(Comentario comentario){
     Comentarios.insert(comentario);
 }
+
+void Post::dar_like(){
+    like++;
+}

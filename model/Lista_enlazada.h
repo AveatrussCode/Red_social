@@ -5,7 +5,6 @@
 
 template <class V>
 class Nodo{
-
 public:
     long long id;
     V valor;
